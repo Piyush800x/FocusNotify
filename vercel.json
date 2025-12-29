@@ -1,4 +1,10 @@
 {
+  "functions": {
+    "api/*.py": {
+      "runtime": "python3.11",
+      "maxDuration": 10
+    }
+  },
   "crons": [
     {
       "path": "/api/focus",
