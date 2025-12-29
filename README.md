@@ -44,8 +44,8 @@ This tool enforces:
 ```.
 ├── api/
 │ └── focus.py 
-├── focus.py 
-├── mailer.py # SMTP email sender
+│ └── generat_daily_focus.py
+│ └── mailer.py # SMTP email sender
 ├── vercel.json # Cron configuration
 └── README.md
 ```
