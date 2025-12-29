@@ -1,23 +1,21 @@
 import os
-from mailer import send_email
-from generate_daily_focus import generate_daily_focus
-import traceback
+from api.mailer import send_email
+from api.generate_daily_focus import generate_daily_focus
 
 
 def handler(request):
-    try:
-        goal = os.environ.get("GOAL")
+    goal = os.environ.get("GOAL")
 
-        focus = generate_daily_focus(goal)
-        send_email(focus["subject"], focus["body"])
-
-        return {
-            "statusCode": 200,
-            "body": "Focus email sent"
-        }
-
-    except Exception as e:
+    if not goal:
         return {
             "statusCode": 500,
-            "body": traceback.format_exc()
+            "body": "GOAL environment variable is not set"
         }
+
+    focus = generate_daily_focus(goal)
+    send_email(focus["subject"], focus["body"])
+
+    return {
+        "statusCode": 200,
+        "body": "Focus email sent"
+    }
