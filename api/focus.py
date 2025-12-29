@@ -4,9 +4,15 @@ from generate_daily_focus import generate_daily_focus
 
 
 def handler(request):
-    GOAL = os.environ["GOAL"]
+    goal = os.environ.get("GOAL")
 
-    focus = generate_daily_focus(GOAL)
+    if not goal:
+        return {
+            "statusCode": 500,
+            "body": "GOAL environment variable is not set"
+        }
+
+    focus = generate_daily_focus(goal)
     send_email(focus["subject"], focus["body"])
 
     return {
