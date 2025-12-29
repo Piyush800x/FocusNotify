@@ -1,10 +1,16 @@
 {
-  "functions": {
-    "api/*.py": {
-      "runtime": "@vercel/python@3.11",
-      "maxDuration": 10
+  "builds": [
+    {
+      "src": "api/*.py",
+      "use": "@vercel/python"
     }
-  },
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1.py"
+    }
+  ],
   "crons": [
     {
       "path": "/api/focus",
